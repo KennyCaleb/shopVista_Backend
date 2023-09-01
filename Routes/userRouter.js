@@ -26,11 +26,28 @@ router.post("/", asyncHandler(async(req, res)=>{
 
 }))
 
+// get users
 router.get("/", asyncHandler(async(req, res)=>{
 
     const customers = await Customers.find()
     res.status(200).json({msg:"All Customers", customers})
 
 }))
+
+// get user
+router.get("/:id", async (req, res) => {
+
+  const id = req.params.id;
+
+  const getCustomer = await Customers.findOne({ _id: id });
+
+  if(getCustomer){
+      res.status(200).json({msg : `customer ${id}`, customer : getCustomer })
+  }
+  
+  else{
+      res.status(400).send({msg :`cannot get customer - ${id}`})
+  }
+});
 
 module.exports = router

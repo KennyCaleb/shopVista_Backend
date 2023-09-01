@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const error = require("./middleWare/errorMiddleWare");
 const customersRouter = require("./Routes/userRouter");
 const productsRouter = require("./Routes/productsRouter")
+const cartRouter = require("./Routes/cartRouter")
 
 //connecting to database
 mongoose
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(error.errorMiddleWareHandler);
 app.use("/api/customers", customersRouter);
 app.use("/api/products", productsRouter)
+app.use("/api/cart", cartRouter)
 
 // creating server
 const PORT = process.env.PORT || 5000;
