@@ -16,7 +16,12 @@ router.post("/", asyncHandler(async(req, res)=>{
     else if(password.length <= 4) res.send({ msg: "Password length shoud be greater than 4."});
 
     const newCustomer = await Customers.create({name, email, phoneNumber , password})
-    res.status(200).json({msg:"New Customer added successfully", newCustomer})
+    // res.status(200).json({msg:"New Customer added successfully", newCustomer})
+    if (newCustomer) {
+      res.status(201).json({name, email, phoneNumber, password});
+    } else {
+      res.send({ msg: "User not created" });
+    }
 
 
 }))
