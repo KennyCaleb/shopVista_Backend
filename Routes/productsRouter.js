@@ -18,6 +18,9 @@ router.post(
       imgUrls,
       category,
     });
+
+    
+
     if (newProduct) {
       res.status(200).json({
         msg: "Product added.",
@@ -28,6 +31,21 @@ router.post(
     }
   })
 );
+
+//post many products
+router.post("/many", asyncHandler(async(req, res)=>{
+     const {products} = req.body
+     
+     const newCollections = await Products.insertMany(products)
+     console.log(Array.isArray(products))
+
+     if(newCollections){
+      res.status(200).json({msg : "new products collections added", newCollections})
+     }
+     else{
+      res.status(400).send({msg : "Error adding new products collections."})
+     }
+}))
 
 // get products
 router.get("/", async (req, res) => {
