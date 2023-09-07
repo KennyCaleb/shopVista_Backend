@@ -74,5 +74,32 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// update product
+router.put("/:id", asyncHandler(async(req, res)=>{
+  const {id} = req.params
+
+  const updatedProduct = await Products.findOneAndUpdate({_id:id})
+  
+  if(updatedProduct){
+    res.status(200).json({msg:`product updated ${id}`, updatedProduct})
+  }
+  else{
+    res.status(400).json({msg : `error updating product ${id}`})
+  }
+}))
+
+// delete product
+router.put("/:id", asyncHandler(async(req, res)=>{
+  const {id} = req.params
+
+  const deletedProduct = await Products.findOneAndDelete({_id:id})
+  
+  if(deletedProduct){
+    res.status(200).json({msg:`product updated ${id}`, deletedProduct})
+  }
+  else{
+    res.status(400).json({msg : `error updating product ${id}`})
+  }
+}))
 
 module.exports = router;
